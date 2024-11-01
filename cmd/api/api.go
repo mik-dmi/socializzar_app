@@ -2,6 +2,7 @@ package main
 
 import (
 	"net/http"
+	"socializzar_app/internal/store"
 	"time"
 
 	"github.com/go-chi/chi/v5"
@@ -10,9 +11,18 @@ import (
 
 type config struct {
 	addr string
+	db   dbConfig
 }
 type application struct {
 	config config
+	store  store.Storage
+}
+
+type dbConfig struct {
+	addr         string
+	maxOpenConns int
+	maxIdleConns int
+	maxIdleTime  string
 }
 
 func (app *application) mount() *chi.Mux {
